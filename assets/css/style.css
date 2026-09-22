@@ -691,4 +691,17 @@ small {
   #intro.section {
     background-position-x: 30%;
   }
+  .map-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .map-container iframe {
+    display: block;
+    width: 100%;
+  }
 }
