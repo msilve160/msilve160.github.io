@@ -319,7 +319,13 @@
               </div>
             </div>
           </div>
-
+        <!-- Dynamic Projects (Activity 5) -->
+        <div class="row">
+          <h5 class="teal-text" style="margin-top: 40px;">More Projects</h5>
+          <div id="dynamic-projects" class="row"></div>
+          <div class="col s12" style="text-align: center;">
+            <button id="load-more-btn" class="btn teal waves-effect waves-light">Load More</button>
+          </div>
         </div>
       </div>
     </section>
@@ -476,6 +482,75 @@
         closeOnClick: true
       })
     })
+  </script>
+
+    <!-- Dynamic Projects (Activity 5) -->
+  <script>
+    const projectsData = [
+      {
+        title: "Portfolio Website",
+        description: "This personal website, built with HTML, CSS, and JavaScript, deployed on GitHub Pages.",
+        tools: "HTML, CSS, JavaScript, GitHub Pages",
+        github: "https://github.com/varadbhogayata"
+      },
+      {
+        title: "Task Tracker App",
+        description: "A simple to-do list app with add, edit, and delete functionality using local storage.",
+        tools: "JavaScript, HTML, CSS",
+        github: "https://github.com/varadbhogayata"
+      },
+      {
+        title: "Weather Dashboard",
+        description: "A dashboard that fetches and displays current weather data from a public API.",
+        tools: "JavaScript, REST API, Chart.js",
+        github: "https://github.com/varadbhogayata"
+      },
+      {
+        title: "Recipe Finder",
+        description: "A web app that lets users search for recipes based on available ingredients.",
+        tools: "JavaScript, HTML, CSS, Fetch API",
+        github: "https://github.com/varadbhogayata"
+      }
+    ];
+
+    let projectsShown = 0;
+    const projectsPerLoad = 2;
+
+    function renderProjects() {
+      const container = document.getElementById("dynamic-projects");
+      const nextBatch = projectsData.slice(projectsShown, projectsShown + projectsPerLoad);
+
+      nextBatch.forEach(project => {
+        const col = document.createElement("div");
+        col.className = "col s12 m6 l4";
+        col.innerHTML = `
+          <div class="card medium">
+            <div class="card-content">
+              <span class="card-title teal-text">${project.title}</span>
+              <p>${project.description}</p>
+              <p><b>Tools:</b> ${project.tools}</p>
+            </div>
+            <div class="card-action">
+              <a href="${project.github}" target="_blank">View on GitHub</a>
+            </div>
+          </div>
+        `;
+        container.appendChild(col);
+      });
+
+      projectsShown += nextBatch.length;
+
+      if (projectsShown >= projectsData.length) {
+        const btn = document.getElementById("load-more-btn");
+        btn.disabled = true;
+        btn.style.display = "none";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderProjects(); // show first 2 on load
+      document.getElementById("load-more-btn").addEventListener("click", renderProjects);
+    });
   </script>
 </body>
 
